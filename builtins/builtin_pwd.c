@@ -6,7 +6,7 @@ int builtin_pwd(void)
 
     if (getcwd(current_path_buffer, PATH_MAX) == NULL)
     {
-        perror("minishell: pwd: getcwd");
+        display_error_message("pwd", NULL, strerror(errno));
         return (1);
     }
     write(STDOUT_FILENO, current_path_buffer, ft_strlen(current_path_buffer));
