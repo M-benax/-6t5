@@ -1,3 +1,4 @@
+
 #include "../minishell.h"
 
 void handle_parent_wait(pid_t child_pid, int is_pipeline_last_cmd, t_data *data)
@@ -21,7 +22,7 @@ void handle_parent_wait(pid_t child_pid, int is_pipeline_last_cmd, t_data *data)
         data->last_exit_status = child_exit_status;
 }
 
-char **convert_env_list_to_array(t_env *env_list)
+char **convert_env_list_to_array(t_env *env_list, t_data *data)
 {
     int     count;
     t_env   *tmp;
@@ -37,7 +38,7 @@ char **convert_env_list_to_array(t_env *env_list)
         if (tmp->val) count++;
         tmp = tmp->next;
     }
-    env_array = gc_malloc(sizeof(char *) * (count + 1));
+    env_array = gc_malloc(sizeof(char *) * (count + 1), data);
     if (!env_array) return (NULL);
     tmp = env_list;
     i = 0;
@@ -45,8 +46,8 @@ char **convert_env_list_to_array(t_env *env_list)
         if (tmp->val) {
             len_var = ft_strlen(tmp->var);
             len_val = ft_strlen(tmp->val);
-            var_eq_val = gc_malloc(len_var + 1 + len_val + 1);
-            if (!var_eq_val) { /* TODO: Handle malloc error */ gc_free_array(env_array); return NULL;}
+            var_eq_val = gc_malloc((len_var + 1 + len_val + 1), data);
+            if (!var_eq_val) { /* TODO: Handle malloc error */ gc_free_array(env_array, data); return NULL;}
             ft_memcpy(var_eq_val, tmp->var, len_var);
             var_eq_val[len_var] = '=';
             ft_memcpy(var_eq_val + len_var + 1, tmp->val, len_val);

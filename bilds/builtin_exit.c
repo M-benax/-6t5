@@ -1,3 +1,4 @@
+
 #include "../minishell.h"
 
 int is_str_numeric(const char *str)
@@ -28,7 +29,7 @@ int builtin_exit(char **args, t_data *data)
         } else {
             display_error_message("exit", args[1], "numeric argument required");
             exit_code_val = EXIT_SYNTAX_ERROR; 
-            gc_free_all();
+            gc_free_all(data);
             exit(exit_code_val);
         }
         if (args[2]) {
@@ -37,7 +38,7 @@ int builtin_exit(char **args, t_data *data)
             return (EXIT_GENERAL_ERROR);
         }
     }
-    gc_free_all();
+    gc_free_all(data);
     exit(exit_code_val);
     return (0); 
 }

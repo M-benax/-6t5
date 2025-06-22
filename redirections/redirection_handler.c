@@ -1,3 +1,4 @@
+
 #include "../minishell.h"
 
 static int open_output_file(char *filename, int type)

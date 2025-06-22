@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaboudra <aaboudra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 03:18:23 by aaboudra          #+#    #+#             */
-/*   Updated: 2025/05/14 03:34:51 by aaboudra         ###   ########.fr       */
+/*   Created: 2025/05/14 18:46:55 by aaboudra          #+#    #+#             */
+/*   Updated: 2025/06/17 18:00:17 by aaboudra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void _sigint_handler(int sig)
+int builtin_echo(char **args)
 {
-    (void)sig;
-    write(1, "\n", 1);
-    rl_on_new_line();
-    rl_replace_line("", 0);
-    rl_redisplay();
-}
+	int i = 1;
+	int n_option = 0;
 
-void signal_init(void)
-{
-    signal(SIGINT, _sigint_handler);
-    signal(SIGQUIT, SIG_IGN);
+	while (args[i] && ft_strcmp(args[i], "-n") == 0)
+	{
+		n_option = 1;
+		i++;
+	}
+	while (args[i])
+	{
+		write(STDOUT_FILENO, args[i], ft_strlen(args[i]));
+		if (args[i+1])
+			write(STDOUT_FILENO, " ", 1);
+		i++;
+	}
+	if (!n_option)
+		write(STDOUT_FILENO, "\n", 1);
+	return (0);
 }
