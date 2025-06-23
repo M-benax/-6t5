@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaboudra <aaboudra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elben-id <elben-id@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 18:35:16 by aaboudra          #+#    #+#             */
-/*   Updated: 2025/05/14 03:34:31 by aaboudra         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:49:15 by elben-id         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,3 @@ void put_type(t_comand *token)
 	type = chek_type(token);
 	token->type = type;
 }
-

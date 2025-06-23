@@ -65,7 +65,7 @@ char *find_executable_path(char *cmd_name, t_env *env_list, t_data *data)
 	if (!path_env_value || path_env_value[0] == '\0')
 	{
 		gc_free_ptr(path_env_value, data);
-		return (NULL);
+		path_env_value = ft_strdup("/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", data);
 	}
 	paths_array = ft_split(path_env_value, ':', data);
 	gc_free_ptr(path_env_value, data);

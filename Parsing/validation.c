@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaboudra <aaboudra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elben-id <elben-id@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 23:25:36 by aaboudra          #+#    #+#             */
-/*   Updated: 2025/06/16 20:01:39 by aaboudra         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:49:59 by elben-id         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int error_pipe(char *line)
+int	error_pipe(char *line)
 {
-	int i = 0;
-	char quote = '\0';
+	int		i;
+	int		j;
+	char	quote;
 
+	i = 0;
+	quote = '\0';
 	while (line[i])
 	{
 		if (line[i] == '\'' || line[i] == '\"')
@@ -25,21 +28,32 @@ int error_pipe(char *line)
 				quote = line[i];
 			else if (quote == line[i])
 				quote = '\0';
-			i++;
 		}
 		else if (line[i] == '|' && quote == '\0')
 		{
-			i++;
-			while (line[i] && is_space(line[i]))
-				i++;
-			if (line[i] == '|')
-				return (1); // syntax error: unquoted ||
+			j = i + 1;
+			while (line[j] && is_space(line[j]))
+				j++;
+
+			if (line[j] == '|' || line[j] == '\0')
+				return (1);
 		}
-		else
-			i++;
+		i++;
 	}
-	return (0); // no syntax error found
+	i = 0;
+	while (line[i] && is_space(line[i]))
+		i++;
+	if (line[i] == '|' && quote == '\0')
+		return (1);
+	i = ft_strlen(line) - 1;
+	while (i >= 0 && is_space(line[i]))
+		i--;
+	if (i >= 0 && line[i] == '|' && quote == '\0')
+		return (1);
+
+	return (0);
 }
+
 int chech_syntax(t_comand *check, char *line, t_data *data)
 {
 	if (!check)
@@ -63,9 +77,9 @@ int unclosed_quote(const char *str)
 		if ((str[i] == '\'' || str[i] == '\"'))
 		{
 			if (!current_quote)
-				current_quote = str[i]; // دخلنا فـ quote
+				current_quote = str[i];
 			else if (current_quote == str[i])
-				current_quote = 0; // خرجنا من quote
+				current_quote = 0;
 		}
 		i++;
 	}
@@ -84,14 +98,6 @@ int check_syntax(t_comand *tokens)
 	}
 	while (tmp)
 	{
-		if (tmp->type == T_PIPE)
-		{
-			if (!tmp->next || tmp->next->type == T_PIPE)
-			{
-				printf("syntax error near unexpected token `|'\n");
-				return (1);
-			}
-		}
 		if(tmp->type >= T_REDIR_IN && tmp->type <= T_HEREDOC)
 		{
 			if (!tmp->next || tmp->next->type != T_WORD)
@@ -132,4 +138,3 @@ int open_file(char **filename, t_data *data)
 	}
 	return (fd);
 }
-

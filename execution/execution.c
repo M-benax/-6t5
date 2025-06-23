@@ -5,7 +5,7 @@ void start_execution(t_data *data)
 {
     if (!data || !data->com)
         return;
-    if (!data->com->args || !data->com->args[0])
+    if (!data->com->args || !data->com->args[0] || data->com->argc == 0)
     {
         data->last_exit_status = 0;
         return;

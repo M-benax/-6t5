@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaboudra <aaboudra@student.42.fr>          +#+  +:+       +#+         #
+#    By: elben-id <elben-id@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/01 21:54:06 by aaboudra          #+#    #+#              #
-#    Updated: 2025/06/17 19:47:41 by aaboudra         ###   ########.fr        #
+#    Updated: 2025/06/22 23:13:26 by elben-id         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = main/minishell.c ./Parsing/tokenization.c ./utils/utils.c \
 	execution/execution_utils.c execution/execution.c \
 	redirections/redirection_handler.c path/path_handler.c
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h
 

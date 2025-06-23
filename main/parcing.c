@@ -51,10 +51,10 @@ static int syntax_quote_or_pipe(char *line,t_data *data)
 	}
 	if (too_many_heredocs(line))
 	{
-		printf("bash: maximum here-document count exceeded\n");
+		printf("minishell: maximum here-document count exceeded\n");
 		free(line);
-		data->last_exit_status = EXIT_SYNTAX_ERROR;
-		return (0);
+		gc_free_all(data);
+		exit(EXIT_SYNTAX_ERROR);
 	}
 	return (1);
 }

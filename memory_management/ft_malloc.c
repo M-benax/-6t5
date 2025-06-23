@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaboudra <aaboudra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elben-id <elben-id@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 18:11:20 by aaboudra          #+#    #+#             */
-/*   Updated: 2025/06/17 18:04:33 by aaboudra         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:48:46 by elben-id         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
 
 char	*ft_strdup(const char *s1, t_data *data)
 {
@@ -50,6 +48,7 @@ char	*ft_strndup(const char *s1, size_t size, t_data *data)
 void gc_free_pid_list(t_pid_list *list, t_data *data)
 {
     t_pid_list *tmp;
+    
     while (list)
     {
         tmp = list;
@@ -61,21 +60,24 @@ void gc_free_pid_list(t_pid_list *list, t_data *data)
 void gc_free_array(char **array, t_data *data)
 {
     int i;
+    
     if (!array) return;
     i = 0;
     while (array[i])
     {
-        gc_free_ptr(array[i], data); // Assumes strings in array were gc_malloc'd
+        gc_free_ptr(array[i], data);
         i++;
     }
-    gc_free_ptr(array, data); // Free the array of pointers itself
+    gc_free_ptr(array, data);
 }
 
 void gc_free_ptr(void *ptr, t_data *data)
 {
-    t_gc_node *curr = data->g_gc_list;
-    t_gc_node *prev = NULL;
+    t_gc_node *curr;
+    t_gc_node *prev;
 
+    curr = data->g_gc_list;
+    prev = NULL;
     while (curr)
     {
         if (curr->ptr == ptr)

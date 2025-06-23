@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bilds.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaboudra <aaboudra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elben-id <elben-id@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 18:46:55 by aaboudra          #+#    #+#             */
-/*   Updated: 2025/06/17 18:00:17 by aaboudra         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:46:54 by elben-id         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,3 @@ void print_export(t_env *env, t_data *data)
     }
     gc_free_ptr(vars, data);
 }
-
-// void biltings(t_data *data)
-// {
-    
-//     if (data->com->args && data->com->args[0] &&
-//         (ft_strcmp(data->com->args[0], "env") == 0) &&
-//             !data->com->args[1] && !data->com->next)
-//             print_env(data->tenv);
-//     if	(data->com->args && data->com->args[0] &&
-//          (ft_strcmp(data->com->args[0], "export") == 0))
-//     {
-//         if(!data->com->args[1] && !data->com->next)
-//             print_export(data->tenv, data);
-//         else
-//             handel_export(data);
-//     }
-//     if	(data->com->args && data->com->args[0] &&
-//         (ft_strcmp(data->com->args[0], "unset") == 0))
-//         unset(data->com->args, &data->tenv);
-    
-// }

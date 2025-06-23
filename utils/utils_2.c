@@ -71,11 +71,13 @@ t_comand *handle_quotes(char *token, t_data *data)
     char    quote;
     char   *new_token;
 	int qouted;
+	int has_unquoted_content;
 
 	i = 0;
 	j = 0;
 	qouted = 0;
 	quote = 0;
+	has_unquoted_content = 0;
     new_token = gc_malloc(ft_strlen(token) + 1, data);
     while (token[i])
     {
@@ -94,10 +96,16 @@ t_comand *handle_quotes(char *token, t_data *data)
             i++;
         }
         else
+        {
+            if (quote == 0)
+                has_unquoted_content = 1;
             new_token[j++] = token[i++];
+        }
     }
     new_token[j] = '\0';
 	gc_free_ptr(token, data);
+    if (has_unquoted_content)
+        qouted = 0;
     return (new_node(new_token, qouted, data));
 }
 

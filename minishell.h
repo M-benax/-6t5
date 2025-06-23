@@ -131,6 +131,7 @@ int	ft_isalpha(int c);
 char *get_env_value(t_env *env, char *key, t_data *data);
 void gc_free_ptr(void *ptr, t_data *data);
 int unclosed_quote(const char *str);
+char *expand_var(const char *str, t_data *data);
 
 //---------
 
